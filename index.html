@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#05070a" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <title>不第 · 枫桥夜泊</title>
+    <script type="module" crossorigin src="./assets/index-Cfs25-Wl.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DnEVnFJR.css">
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene"></canvas>
+      <div id="vignette"></div>
+
+      <div id="entry" class="overlay">
+        <div class="entry-inner">
+          <div class="seal">不第</div>
+          <h1>大唐失意者</h1>
+          <p class="sub">枫桥夜泊 · 三秒听钟</p>
+          <button id="enter-btn" type="button">进入</button>
+          <p class="hint">建议戴耳机 · 进入后请稍等三秒</p>
+        </div>
+      </div>
+
+      <div id="loading" class="loading">水面与钟声正在靠近…</div>
+      <div id="hint" class="hint hidden">点击铜铃</div>
+      <div id="subtitles"></div>
+      <div id="poem"></div>
+
+      <button id="story-next" class="story-cta hidden" type="button">低头看船头</button>
+      <div id="story-root"></div>
+      <canvas id="card-canvas" width="1080" height="1920" class="offscreen"></canvas>
+
+      <div id="debug" class="debug hidden"></div>
+    </div>
+  </body>
+</html>
