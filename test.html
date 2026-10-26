@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>不遇 · 3 人试玩记录</title>
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; padding: 40px 18px 80px;
+        background: #070a0e; color: #e8e0d0;
+        font: 15px/1.9 "Songti SC", "Noto Serif SC", serif;
+      }
+      main { max-width: 720px; margin: 0 auto; }
+      .kicker { color: rgba(232,224,208,.45); font-size: 11px; letter-spacing: .35em; }
+      h1 { margin: 12px 0 10px; font-size: 34px; font-weight: 400; letter-spacing: .08em; }
+      p.lead { color: rgba(232,224,208,.62); margin: 0 0 26px; }
+      a { color: #d8b77a; }
+      .demo {
+        display: block; padding: 18px 20px; margin: 0 0 28px;
+        border: 1px solid rgba(201,164,106,.35); background: rgba(16,20,26,.6);
+        text-decoration: none; color: #e8e0d0;
+      }
+      .demo b { display: block; font-weight: 400; color: #f3e7cf; margin-bottom: 4px; }
+      .demo span { color: rgba(232,224,208,.5); font-size: 12px; letter-spacing: .12em; }
+      label { display: block; margin: 22px 0 8px; color: rgba(232,224,208,.72); }
+      textarea, input {
+        width: 100%; padding: 12px 14px; border: 1px solid rgba(232,224,208,.2);
+        background: rgba(255,255,255,.035); color: #f0eadc; font: inherit;
+      }
+      textarea { min-height: 78px; resize: vertical; }
+      .row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+      button, .btn {
+        min-height: 44px; padding: 11px 20px; border: 1px solid rgba(201,164,106,.55);
+        background: rgba(28,22,14,.7); color: #f2e8d6; font: inherit; cursor: pointer;
+      }
+      button.secondary { border-color: rgba(232,224,208,.2); background: transparent; }
+      #out { margin-top: 22px; white-space: pre-wrap; color: rgba(232,224,208,.55); font-size: 12px; }
+      .fine { margin-top: 40px; color: rgba(232,224,208,.3); font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="kicker">不遇 · 大唐失意者 · 试玩记录</div>
+      <h1>3 人试玩记录</h1>
+      <p class="lead">请先完整玩一遍，再回答下面 3 个问题。没有标准答案，只记录对方原话。</p>
+
+      <a class="demo" href="./" target="_blank" rel="noreferrer">
+        <b>打开 Demo · 不遇 · 枫桥夜泊</b>
+        <span>约 3–5 分钟 · 建议戴耳机 · 桌面或手机</span>
+      </a>
+
+      <label for="who">试玩者代号 / 设备（例：A / 手机）</label>
+      <input id="who" placeholder="A / 手机" />
+
+      <label for="q1">1. 你刚才在等什么？（不要提示“等钟”，让对方自己说）</label>
+      <textarea id="q1"></textarea>
+
+      <label for="q2">2. 哪里最想退出？为什么？</label>
+      <textarea id="q2"></textarea>
+
+      <label for="q3">3. 如果只能改一件事，你会改什么？</label>
+      <textarea id="q3"></textarea>
+
+      <label for="q4">4. 你会把判词卡发给谁？（可选）</label>
+      <textarea id="q4"></textarea>
+
+      <div class="row">
+        <button id="copy">复制反馈</button>
+        <button id="download" class="secondary">下载 .txt</button>
+        <a class="btn" href="./" target="_blank" rel="noreferrer" style="text-decoration:none">再打开 Demo</a>
+      </div>
+      <div id="out" role="status" aria-live="polite"></div>
+
+      <p class="fine">本页不收集数据；反馈只保存在你的剪贴板/下载文件里。把文本发回给制作人即可。</p>
+    </main>
+
+    <script>
+      const ids = ['who', 'q1', 'q2', 'q3', 'q4'];
+      function text() {
+        const v = Object.fromEntries(ids.map((id) => [id, document.getElementById(id).value.trim()]));
+        return [
+          '不遇 · 3 人试玩记录',
+          '试玩者/设备：' + (v.who || '（未填）'),
+          '',
+          '1. 你刚才在等什么？',
+          v.q1 || '（未填）',
+          '',
+          '2. 哪里最想退出？为什么？',
+          v.q2 || '（未填）',
+          '',
+          '3. 如果只能改一件事，你会改什么？',
+          v.q3 || '（未填）',
+          '',
+          '4. 你会把判词卡发给谁？',
+          v.q4 || '（未填）',
+          '',
+          '— 由 test.html 生成 —'
+        ].join('\n');
+      }
+      const out = document.getElementById('out');
+      document.getElementById('copy').addEventListener('click', async () => {
+        const t = text();
+        try {
+          await navigator.clipboard.writeText(t);
+          out.textContent = '已复制。把这段文本发回给制作人即可。';
+        } catch {
+          out.textContent = t;
+          out.textContent += '\n\n（剪贴板不可用，请手动全选复制）';
+        }
+      });
+      document.getElementById('download').addEventListener('click', () => {
+        const blob = new Blob([text()], { type: 'text/plain;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = '不遇_试玩记录.txt';
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+        out.textContent = '已下载。把 .txt 发回给制作人即可。';
+      });
+    </script>
+  </body>
+</html>
